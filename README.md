@@ -6,7 +6,7 @@ This is for the TTP Application Challenge for developmment position.
 
 #Instructions
 The TicTacToeDP.jar file is the only thing you need to download.
-  Go to the folder and : 
+  Go to the folder you downloaded it to and : 
   1) open a terminal in your computer in the same directory or go to the directory in the terminal.
   2)  Type: java -jar TicTacToeDP.jar  in your terminal and you should have the game running. 
                 Operating system doesnt matter but you do need java installed. 
