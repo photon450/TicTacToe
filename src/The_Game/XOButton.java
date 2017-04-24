@@ -1,10 +1,14 @@
 package The_Game;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.awt.Color;
 import java.awt.event.ActionEvent; 
 
 /*
@@ -15,17 +19,17 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 	
 	
 	
-	ImageIcon X,O; //both letters not number, also will hold our icon and not call pc constantly.
+	private ImageIcon X,O; //both letters not number, also will hold our icon and not call pc constantly.
 
+	private static JLabel lblcopy; //COPY OF THE LABEL in the ui
 	
+	private static byte total; //counts how many have been changed
+	private static int pos = 0;  //counter
+	private int indivpos = 0; //actual position of this individual button
+	private static byte value = 0;  //my boolean for 3 possible outcomes
+	private static boolean gamedone = false;
 	
-	static byte total; //counts how many have been changed
-	static int pos = 0;  //counter
-	int indivpos = 0; //actual position of this individual button
-	static byte value = 0;  //my boolean for 3 possible outcomes
-	static boolean gamedone = false;
-	
-	static HashMap<Integer, Integer> map; // = new Map<XOButton,Integer>();   //so our position, value 
+	private static HashMap<Integer, Integer> map; // = new Map<XOButton,Integer>();   //so our position, value 
 	
 	/*
 	 *   0: is x
@@ -43,11 +47,10 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		}
 		
 		indivpos = pos;
-		try {
-			
 		
+		try {
 		map.put(indivpos, -1);
-		} catch ( Exception e){
+		} catch ( Exception e){  //then its new and not initialized
 			
 			map = new HashMap<>();
 			map.put(indivpos, -1);
@@ -66,13 +69,24 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		if(i ==1){
 			clear();
 			setVisible(false);
+			lblcopy.setText("New Game");
+			lblcopy.setOpaque(false);
 		}
 	} 
 	
 	
+	public XOButton(JLabel lbl) {
+		
+		lbl.setText("Game Started");
+		lblcopy  = lbl;
+		
+		
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		
 	    if(this.getIcon() != null){return;}  //already set don't change it!!
+	     
 	    
 		total++;
 		value++;
@@ -123,7 +137,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 	}
 	
 	
-	public void checkHorizontally(){
+	private void checkHorizontally(){
 		
 		if(gamedone){
 			return;
@@ -265,6 +279,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		total = 0;
 		value = 0;
 		gamedone = false;
+		
 	}
 	
 	public boolean checkForWin(int i, int y){  //i is ply1 ie. player 1, y is player 2
@@ -274,10 +289,17 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 			JOptionPane.showMessageDialog(this, "Player 1 won  please press the RESET button");
 			//clear();
 			gamedone = true;
+			lblcopy.setText("Player 1 won");
+			lblcopy.setOpaque(true);
+			lblcopy.setBackground(Color.GREEN);
+			//lblcopy.
 			return true;
 			
 		}else if (y ==3){
 			JOptionPane.showMessageDialog(this, "Player 2 won please press the RESET button");
+			lblcopy.setText("Player 2 won");
+			lblcopy.setOpaque(true);
+			lblcopy.setBackground(Color.RED);
 			//clear();
 			gamedone=true;
 			return true;
@@ -286,5 +308,18 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		return false; 
 	}
 	
+	
+	public boolean getStatus(){
+		
+		return gamedone;
+	}
+	
+	
+	
+	public static HashMap<Integer,Integer> adversaryfeeder(){
+		
+		
+		return map;
+	}
 }
 

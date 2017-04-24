@@ -1,6 +1,7 @@
 package The_Game;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +11,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel; 
+import javax.swing.JPanel;
+import javax.swing.SwingConstants; 
 
 public class TicTacToe  extends JFrame {
 	
@@ -21,9 +23,10 @@ public class TicTacToe  extends JFrame {
 
 	
 	JButton b1 = new JButton("Reset");
-	JLabel lbl = new JLabel("Welcome to the Game!");
+	JLabel lbl = new JLabel("Welcome to the Game!", SwingConstants.CENTER);
     XOButton buttons[] = new XOButton[9]; //last one is a flag to reset.
 	
+	XOButton button = new XOButton(lbl);
 	
 	public static void main(String args[]){
 		
@@ -64,7 +67,7 @@ public class TicTacToe  extends JFrame {
 			}
 			
 		});
-		
+		lbl.setFont(new Font("Serif",Font.BOLD,20));
 		add(lbl, BorderLayout.NORTH);
 		
 		add(p);
