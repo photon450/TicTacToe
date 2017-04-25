@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,7 +26,7 @@ public class TicTacToe  extends JFrame {
 	JButton b1 = new JButton("Reset");
 	JLabel lbl = new JLabel("Welcome to the Game!", SwingConstants.CENTER);
     XOButton buttons[] = new XOButton[9]; //last one is a flag to reset.
-	
+	//JComboBox dropdown = new JComboBox();
 	XOButton button = new XOButton(lbl);
 	
 	public static void main(String args[]){
@@ -65,11 +66,14 @@ public class TicTacToe  extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				reset();
 			}
-			
+		
 		});
+		//comboBoxSetup();   //Not Finished yet
 		lbl.setFont(new Font("Serif",Font.BOLD,20));
 		add(lbl, BorderLayout.NORTH);
-		
+       // add(dropdown, BorderLayout.EAST ); Not Finished yet
+        
+
 		add(p);
 		add(b1, BorderLayout.AFTER_LAST_LINE);
 		setVisible(true);
@@ -77,6 +81,24 @@ public class TicTacToe  extends JFrame {
 
 	}
 
+	
+	/*
+	public void comboBoxSetup(){
+		dropdown.addItem(" vs Human ");
+		dropdown.addItem(" vs AI Easy ");
+		
+		
+		dropdown.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				
+				
+				
+			}
+		});
+	} */
+	
+	
 	public void reset(){    //reset if needed
 		
 		XOButton button = new XOButton(1); //kill code sent

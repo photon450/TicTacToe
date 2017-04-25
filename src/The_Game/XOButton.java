@@ -28,6 +28,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 	private int indivpos = 0; //actual position of this individual button
 	private static byte value = 0;  //my boolean for 3 possible outcomes
 	private static boolean gamedone = false;
+	public static boolean  aiActivity;  //if true on. 
 	
 	private static HashMap<Integer, Integer> map; // = new Map<XOButton,Integer>();   //so our position, value 
 	
