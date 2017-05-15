@@ -20,3 +20,8 @@ Current Functionality: Games are multiplayer between 2 human players. 1st player
 
       Winning Conditions:
         1) your symbol covers an entire row horizontaly, vertically or diagonally.
+
+
+
+NOTE: The SAL branch has an AI PLayer option, its expirimental but playable.
+        The AI needs improvement.
