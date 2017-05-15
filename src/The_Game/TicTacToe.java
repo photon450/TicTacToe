@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants; 
 
@@ -26,7 +27,7 @@ public class TicTacToe  extends JFrame {
 	JButton b1 = new JButton("Reset");
 	JLabel lbl = new JLabel("Welcome to the Game!", SwingConstants.CENTER);
     XOButton buttons[] = new XOButton[9]; //last one is a flag to reset.
-	//JComboBox dropdown = new JComboBox();
+	//JComboBox dropdown = new JComboBox();    DEPRECATED REMOVE
 	XOButton button = new XOButton(lbl);
 	
 	public static void main(String args[]){
@@ -59,7 +60,22 @@ public class TicTacToe  extends JFrame {
 			 
 		}
 		
-	
+		String[] options = new String[] {"Human", "Computer"};
+		int choice = JOptionPane.showOptionDialog(null, "Do you want to play with a Human player or the AI?", "Choose Player Mode", JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null, options, options[0]);
+		
+		
+		if(choice == 1){
+			XOButton.setPlayerMode();
+		}
+		/*
+		dropdown.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				
+				
+				XOButton.adversaryfeeder(); //Sets player mode to ai when box is clicked
+			}
+		}); */
 			 
 		b1.addActionListener( new ActionListener() {
 			
@@ -68,10 +84,10 @@ public class TicTacToe  extends JFrame {
 			}
 		
 		});
-		//comboBoxSetup();   //Not Finished yet
+	//	comboBoxSetup();   //Not Finished yet
 		lbl.setFont(new Font("Serif",Font.BOLD,20));
 		add(lbl, BorderLayout.NORTH);
-       // add(dropdown, BorderLayout.EAST ); Not Finished yet
+       // add(dropdown, BorderLayout.EAST ); //Not Finished yet
         
 
 		add(p);
@@ -82,20 +98,13 @@ public class TicTacToe  extends JFrame {
 	}
 
 	
-	/*
-	public void comboBoxSetup(){
+	//  AI functionality[Unfinished]
+/*	public void comboBoxSetup(){
 		dropdown.addItem(" vs Human ");
 		dropdown.addItem(" vs AI Easy ");
 		
 		
-		dropdown.addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent e){
-				
-				
-				
-			}
-		});
+		
 	} */
 	
 	

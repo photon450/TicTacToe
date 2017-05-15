@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class XOButton extends JButton implements ActionListener {  //pritty much the Jbutton
 	
 	
-	
+	private static Adversary AI = new Adversary();  //instatiate our AI
 	private ImageIcon X,O; //both letters not number, also will hold our icon and not call pc constantly.
 
 	private static JLabel lblcopy; //COPY OF THE LABEL in the ui
@@ -31,7 +31,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 	public static boolean  aiActivity;  //if true on. 
 	
 	private static HashMap<Integer, Integer> map; // = new Map<XOButton,Integer>();   //so our position, value 
-	
+	private static HashMap<XOButton,Integer> board; //testing    this individual button and position
 	/*
 	 *   0: is x
 	 *   1: is O
@@ -51,10 +51,15 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		
 		try {
 		map.put(indivpos, -1);
+		board.put(this, pos);
 		} catch ( Exception e){  //then its new and not initialized
 			
 			map = new HashMap<>();
 			map.put(indivpos, -1);
+			
+			board = new HashMap<>();
+			if(map.size() >= 9)
+			board.put(this, pos);
 		}
 		
 		
@@ -86,9 +91,9 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 
 	public void actionPerformed(ActionEvent e) {
 		
-	    if(this.getIcon() != null){return;}  //already set don't change it!!
+	    if(this.getIcon() != null){return;}  //already set don't change it!! (handles people clicking on tile that already has icon)
 	     
-	    
+	   
 		total++;
 		value++;
 		 
@@ -97,16 +102,31 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		switch(value){
 		
 		case 0:
-			map.put(indivpos, (int) value);
+			if(!aiActivity){ //if its not the ai 
+			map.put(indivpos, (int) value);   //if its the ai he already does this
+			
 			System.out.println(indivpos + " " + value);
 			setIcon(X);
+			
 		 System.out.println("X");
-			break;
-		case 1: 
+			
+			break; //dont break, AI already moved hence its the 1st player moving
+			}
+		case 1:    //1 or X is O... (	This is palyer 1
 			setIcon(O);
 			map.put(indivpos, (int) value);
 			System.out.println(indivpos + " " + value);
 			System.out.println("O");
+			
+			if(aiActivity){  //1 st player moves so this works after they move , then it goes to case 0(wich the human will click so hence the break
+				if(total > 3)
+					checkGame(); //check if human won.
+				//if not ai gets to move
+				if(!gamedone)
+				AI.Admove();
+				total++;  //add the ai's move
+				value++;
+			}
 			break;
 		}
 		
@@ -151,8 +171,10 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		int q =1;   //the place where inner loop will start
 		for(int i = 1; i <=9; ){
 			
+			
+			//if(!aiActivity){
 			for(int n = q; n <=p ; n++){
-				 
+				
 				if( map.get(n) == 0){
 				  
 					ply2++;
@@ -164,6 +186,8 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 				} 
 				
 			}
+			
+			
 			q+=3;
 			p+=3;
 			i+=3;		
@@ -280,7 +304,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 		total = 0;
 		value = 0;
 		gamedone = false;
-		
+		board.clear();
 	}
 	
 	public boolean checkForWin(int i, int y){  //i is ply1 ie. player 1, y is player 2
@@ -293,7 +317,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 			lblcopy.setText("Player 1 won");
 			lblcopy.setOpaque(true);
 			lblcopy.setBackground(Color.GREEN);
-			//lblcopy.
+			
 			return true;
 			
 		}else if (y ==3){
@@ -301,7 +325,7 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 			lblcopy.setText("Player 2 won");
 			lblcopy.setOpaque(true);
 			lblcopy.setBackground(Color.RED);
-			//clear();
+			
 			gamedone=true;
 			return true;
 		}
@@ -317,10 +341,23 @@ public class XOButton extends JButton implements ActionListener {  //pritty much
 	
 	
 	
-	public static HashMap<Integer,Integer> adversaryfeeder(){
+	public static HashMap<XOButton, Integer> adversaryfeeder(){
+		
+	
+		return board;   //retrive list of xoboard to change the logo 
+		
+	}
+	
+	
+	public static  HashMap<Integer, Integer> adversaryfeeder(int i){
 		
 		
-		return map;
+	
+			return map; //retrive list of buttons position and icon value
+	}
+	//REMEBER TO ADD THIS TO CLEAR()
+	public static void setPlayerMode(){
+		aiActivity =true;
 	}
 }
 
