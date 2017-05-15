@@ -12,8 +12,8 @@ import java.util.Random;
 
 /*
  * The AI Status :in development not done -DP
- * Easy Mode: Random(need to improve efficency
- * Hard Mode: Min max with alpha beta pruning
+ * Easy Mode: Random(need to improve efficency  --removed for SAL branch
+ * Hard Mode: Min max with alpha beta pruning   -- this is the "easy mode"
  */
 public class Adversary {    //PC is Player O (player 2)
 	
