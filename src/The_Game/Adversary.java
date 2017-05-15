@@ -60,7 +60,7 @@ public class Adversary {    //PC is Player O (player 2)
 			
 			position = e.getValue(); //assign the position to notify XOButton of the value change
 			
-			/*if(tile.getIcon() == null && map.get(position) == -1){
+			/*if(tile.getIcon() == null && map.get(position) == -1){    //old random movements, deprecated
 				tile.setIcon(O);
 			    map.put(position, 0); //0 is for player 2(player O)
 				System.out.println("AI moved!");
@@ -96,18 +96,6 @@ public class Adversary {    //PC is Player O (player 2)
 			   return new int[] { result[0], result[1]};  //score, best tile
 		}
 		
-		/*int choosebest(){
-			
-			int bestscore = Integer.MIN_VALUE;
-			int besttile = 0;
-			for(int i = 1; i<=9; i++){
-				
-				if(bestscore < move()[i]){
-				bestscore = move()[i];
-				}
-			}
-			return bestscore;
-		}*/
 		
 		//minmax algorithm for either given player
 		
@@ -118,11 +106,9 @@ public class Adversary {    //PC is Player O (player 2)
 			List<Integer> nextmoves = genmoves();
 			
 			//The given player of this maximized and other player is minimized
-			//int bestScore = ( player == 1) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-			//int currentScore;
+			
 			int score;
-			//int bestRow = -1;
-			//int bestCol = -1;  //these go in next moves
+			
 			int bestTile = -1;
 			
 			if(nextmoves.isEmpty()  || depth == 0){
@@ -134,7 +120,7 @@ public class Adversary {    //PC is Player O (player 2)
 				  //for each "move"
 				for ( Integer move : nextmoves){
 					
-					/*cells[move[0]][move[1]].content = aiplayer;*/  //work out my own board to mess with and set this row, col tile to O(the ai player)
+					 //work out my own board to mess with and set this row, col tile to O(the ai player)
 					map.put(move, player);  // set it to 0 
 					
 					
@@ -143,7 +129,7 @@ public class Adversary {    //PC is Player O (player 2)
 					
 					if(player == 0){  //then the player is the aiplayer so maximize his score!
 						
-						//currentScore = minimax(depth - 1, oppPlayer)[0];
+					
 						score = minmax(depth -1,player = 1, alpha, beta )[0];  //now set player to human and get its min score
 						System.out.println("Score: " + score + " move : " + move);
 						if(score > alpha){
